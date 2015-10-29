@@ -1,8 +1,6 @@
 require "gosu"
-require_relative "shape"
 require_relative "rectangle"
 require_relative "triangle"
-require_relative "square"
 
 class GameWindow < Gosu::Window
 
@@ -12,15 +10,54 @@ class GameWindow < Gosu::Window
 	def initialize
     super WIDTH, HEIGHT
 		self.caption = "SHAPES MURDER"
+		@triangles = []
+		@rectangles = []
+		@rando = false
 	end
 
 	def draw
-		rec = Rectangle.new(90,180,10,300)
-        	tri = Triangle.new(300,300,50)
-		rec.draw_shape
-        	tri.draw_shape
+		@rectangles.each{|rect| rect.draw_shape}
+		@triangles.each{|tri| tri.draw_shape}
+		if @rando
+			for i in 0..25
+				tri = Triangle.new(rand(640), rand(400), rand(200))
+				rec = Rectangle.new(rand(640), rand(400), rand(200), rand(200))
+				tri.draw_shape
+				rec.draw_shape
+			end
+		end
 	end
 
+	def button_down(id)
+		close if id == Gosu::KbEscape
+		if id == Gosu::KbR && @rando == false
+			@rectangles.push(Rectangle.new(rand(640), rand(400), rand(200), rand(200)))
+		end
+		if id == Gosu::KbT && @rando == false
+			@triangles.push(Triangle.new(rand(640), rand(400), rand(200)))
+		end
+		if id == KbUp
+			@rectangles.each{|rec| rec.move(1)}
+			@triangles.each{|tri| tri.move(1)}
+		end
+		if id == KbDown
+			@rectangles.each{|rec| rec.move(2)}
+			@triangles.each{|tri| tri.move(2)}
+		end
+		if id == KbRight
+			@rectangles.each{|rec| rec.move(3)}
+			@triangles.each{|tri| tri.move(3)}
+		end
+		if id == KbLeft
+			@rectangles.each{|rec| rec.move(4)}
+			@triangles.each{|tri| tri.move(4)}
+		end
+		if id == Gosu::KbSpace
+			@triangles = []
+			@rectangles = []
+			@rando = !@rando
+		end
+	end
 end
 
 window = GameWindow.new

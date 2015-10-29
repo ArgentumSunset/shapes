@@ -1,12 +1,13 @@
-require_relative "shape"
-
 class Rectangle
 
 	attr_reader :x, :y, :width, :length, :color, :zorder
 
 	def initialize(x,y,width,length)
 		@zorder = 1
-		@color = Gosu::Color.argb(0xff_ff0000)
+		@color = Gosu::Color.new(0xff_000000)
+		@color.red = rand_color_component
+		@color.green = rand_color_component
+		@color.blue = rand_color_component
 		@x = x
 		@y = y
 		@width = width
@@ -24,4 +25,9 @@ class Rectangle
 		end
 		
 	end
+
+	def rand_color_component
+		rand(256 - 60) + 60 # Not too dark!
+	end
+
 end
