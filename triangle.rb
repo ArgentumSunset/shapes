@@ -2,12 +2,17 @@ class Triangle
 
     attr_reader :x, :y, :side_length, :color, :zorder, :height
 
-    def initialize(x,y,side_length)
+    def initialize(x,y,side_length,color)
 		@zorder = 10
-		@color = Gosu::Color.new(0xff_000000)
-		@color.red = rand_color_component
-		@color.green = rand_color_component
-		@color.blue = rand_color_component
+		if(color)
+			@color = color
+		end
+		else
+			@color = Gosu::Color.new(0xff_000000)
+			@color.red = rand_color_component
+			@color.green = rand_color_component
+			@color.blue = rand_color_component
+		end
 		@x = x
 		@y = y
     @side_length = side_length
@@ -27,19 +32,7 @@ class Triangle
       end
 	end
 
-	def move(dir)
-		if dir == 1
-			y += 5
-		elsif dir == 2
-			y -= 5
-		end
-		elsif dir == 3
-			x += 5
-		end
-		elsif dir == 4
-			x -= 5
-		end
-	end
+	private
 
 	def rand_color_component
 		rand(256 - 40) + 40
