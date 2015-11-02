@@ -2,12 +2,11 @@ class Triangle
 
     attr_reader :x, :y, :side_length, :color, :zorder, :height
 
-    def initialize(x,y,side_length,color)
-		@zorder = 10
+    def initialize(x,y,side_length,color,zorder)
+        @zorder = zorder
 		if(color)
 			@color = color
-		end
-		else
+		elsif(!color)
 			@color = Gosu::Color.new(0xff_000000)
 			@color.red = rand_color_component
 			@color.green = rand_color_component

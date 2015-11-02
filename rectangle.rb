@@ -2,12 +2,11 @@ class Rectangle
 
 	attr_reader :x, :y, :width, :length, :color, :zorder
 
-	def initialize(x,y,width,length,color)
-		@zorder = 1
+    def initialize(x,y,width,length,color,zorder)
+        @zorder = zorder
 		if(color)
 			@color = color
-		end
-		else
+		elsif(!color)
 			@color = Gosu::Color.new(0xff_000000)
 			@color.red = rand_color_component
 			@color.green = rand_color_component
